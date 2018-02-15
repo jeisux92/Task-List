@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     deleteTask(id) {
-      TaskListService.deleteTasks(id).then(x => this.$emit("Reload"));
+      TaskListService.deleteTasks(id).then(this.$emit("Reload"));
     }
   }
 };
