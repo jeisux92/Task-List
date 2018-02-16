@@ -6,7 +6,7 @@
       {{task.text}}
       <span class="pull-right">
        <button 
-               class="btn btn-success btn-xs glyphicon glyphicon-ok" @click="task.completed=!task.completed"></button>
+               class="btn btn-success btn-xs glyphicon glyphicon-ok" @click="changeState(index,task.completed=!task.completed)"></button>
         <button 
                class="btn btn-danger btn-xs glyphicon glyphicon-remove" @click="deleteTask(index)"></button>
         </span>
@@ -25,7 +25,16 @@ export default {
   },
   methods: {
     deleteTask(id) {
-      TaskListService.deleteTasks(id).then(this.$emit("Reload"));
+      TaskListService.deleteTasks(id).then(x => {
+        this.$emit("Reload");
+      });
+    },
+    changeState(index, state) {
+      TaskListService.updateTask(index, state).then(x => {
+        if (x.data) {
+          this.$emit("Reload");
+        }
+      });
     }
   }
 };

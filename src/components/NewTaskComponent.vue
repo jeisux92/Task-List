@@ -33,7 +33,11 @@ export default {
     addTask: function() {
       var text = this.newTask.trim();
       if (text) {
-        TaskListService.saveTask(text).then(this.$emit("Reload"));
+        TaskListService.saveTask(text).then(x => {
+          if (x.data) {
+            this.$emit("Reload");
+          }
+        });
       }
       this.newTask = "";
     }
